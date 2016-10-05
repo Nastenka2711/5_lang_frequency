@@ -9,6 +9,7 @@ c = collections.Counter()
 def load_data(filepath):
     for line in filepath:
         if len(line) > 1:
+            line = line.lower()
             p = re.compile(r'\W+')
             words = p.split(line)
             get_most_frequent_words(words)

@@ -8,8 +8,10 @@ c = collections.Counter()
 
 def load_data(filepath):
     for line in filepath:
-        words = re.split('[\s\0.,>:=?\\/\-\(\)\+\[\]\"\']+', line)
-        get_most_frequent_words(words)
+        if len(line) > 1:
+            p = re.compile(r'\W+')
+            words = p.split(line)
+            get_most_frequent_words(words)
     return
 
 

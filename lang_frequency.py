@@ -4,7 +4,7 @@ import os
 import sys
 
 
-def input_name_file(line_arguments):
+def input_name_file():
     if len(sys.argv) == 1:
         name_file = input("Введите название файла  ")
     else:
@@ -37,7 +37,7 @@ def get_most_frequent_words(text_line, final_list_words):
 
 
 if __name__ == '__main__':
-    name_file = input_name_file(sys.argv)
+    name_file = input_name_file()
     if existence_file(name_file) is None:
         print("Ошибка открытия файла")
     else:

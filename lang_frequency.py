@@ -13,29 +13,31 @@ def input_file_name():
 
 
 def file_exists(filepath):
-    if os.path.exists(filepath) and os.path.isfile(filepath):
-        return 0
+    return os.path.exists(filepath) and os.path.isfile(filepath)
 
 
 def get_words_from_line(line):
     words_from_line = []
-    if len(line) > 1:
-        line = line.lower()
-        words_from_line = re.findall(r'[^\W0-9_]+', line)
+    line = line.lower()
+    words_from_line = re.findall(r'[^\W0-9_]+', line)
     return words_from_line
 
 
-def treatment_data(file_data, word_amount):
+def treat_data(file_data):
     word_list = collections.Counter()
-    for line in file_data:
-            word_list.update(get_words_from_line(line))
-    print(word_list.most_common(word_amount))
+    word_list.update(get_words_from_line(file_data.read()))
+    return word_list
 
+
+def open_file(file_name):
+    with open(file_name, 'r') as file_data:
+        return treat_data(file_data)
 
 if __name__ == '__main__':
     word_amount = 10
     file_name = input_file_name()
-    if file_exists(file_name) is None:
+    if not file_exists(file_name):
         print("Ошибка открытия файла")
     else:
-        treatment_data(open(file_name, 'r'), word_amount)
+        word_list = open_file(file_name)
+        print(word_list.most_common(word_amount))

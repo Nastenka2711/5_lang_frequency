@@ -25,13 +25,14 @@ def get_words_from_line(line):
 
 def treat_data(file_data):
     word_list = collections.Counter()
-    word_list.update(get_words_from_line(file_data.read()))
+    word_list.update(get_words_from_line(file_data))
     return word_list
 
 
 def open_file(file_name):
     with open(file_name, 'r') as file_data:
-        return treat_data(file_data)
+        return file_data.read()
+
 
 if __name__ == '__main__':
     word_amount = 10
@@ -39,5 +40,6 @@ if __name__ == '__main__':
     if not file_exists(file_name):
         print("Ошибка открытия файла")
     else:
-        word_list = open_file(file_name)
+        file_data = open_file(file_name)
+        word_list = treat_data(file_data)
         print(word_list.most_common(word_amount))
